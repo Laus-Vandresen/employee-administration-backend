@@ -37,4 +37,9 @@ public class EmployeeHistoryServiceImpl implements EmployeeHistoryService {
         List<EmployeeHistoryEntity> employeeHistoryEntityList = employeeHistoryRepository.findAllByEmployeeEntityIdOrderByDateDesc(employeeId);
         return employeeHistoryEntityList.stream().map(EmployeeHistoryDto::new).collect(Collectors.toList());
     }
+
+    @Override
+    public EmployeeHistoryEntity findTopByEmployeeEntityIdOrderByDateDesc(Long employeeEntity_id) {
+        return employeeHistoryRepository.findTopByEmployeeEntityIdOrderByDateDesc(employeeEntity_id);
+    }
 }

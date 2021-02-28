@@ -1,14 +1,13 @@
 package br.com.EmployeeAdministration.dto;
 
-import br.com.EmployeeAdministration.entity.EmployeeEntity;
 import br.com.EmployeeAdministration.entity.HourRegisterEntity;
 import br.com.EmployeeAdministration.enuns.MovimentTypeEnum;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @AllArgsConstructor
@@ -22,12 +21,15 @@ public class HourRegisterDto {
     @Enumerated(EnumType.STRING)
     private MovimentTypeEnum movimentType;
 
+    private Timestamp movimentDate;
+
     private Double hours;
 
     public HourRegisterDto(HourRegisterEntity hourRegisterEntity) {
         this.id = hourRegisterEntity.getId();
-        this.idEmployee = hourRegisterEntity.getId();
+        this.idEmployee = hourRegisterEntity.getEmployeeEntity().getId();
         this.movimentType = hourRegisterEntity.getMovimentType();
+        this.movimentDate = hourRegisterEntity.getMovimentDate();
         this.hours = hourRegisterEntity.getHours();
     }
 }

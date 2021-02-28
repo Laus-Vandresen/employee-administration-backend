@@ -1,5 +1,6 @@
 package br.com.EmployeeAdministration.controller;
 
+import br.com.EmployeeAdministration.dto.DashboarDataDto;
 import br.com.EmployeeAdministration.dto.EmployeeAndHistoryDto;
 import br.com.EmployeeAdministration.dto.EmployeeDto;
 import br.com.EmployeeAdministration.service.EmployeeService;
@@ -21,5 +22,10 @@ public class EmployeeController {
     @GetMapping
     public EmployeeAndHistoryDto getEmployeeAndHistory(@RequestParam Long id) {
         return employeeService.findEmployeeAndHistoryById(id);
+    }
+
+    @GetMapping(path = "/dashboard")
+    public DashboarDataDto getDashboardDataDto(@RequestParam Long idEmployee) {
+        return employeeService.getDashBoardData(idEmployee);
     }
 }

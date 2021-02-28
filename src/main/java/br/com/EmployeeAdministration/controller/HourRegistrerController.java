@@ -1,6 +1,5 @@
 package br.com.EmployeeAdministration.controller;
 
-import br.com.EmployeeAdministration.dto.EmployeeHistoryDto;
 import br.com.EmployeeAdministration.dto.HourRegisterDto;
 import br.com.EmployeeAdministration.service.HourRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;

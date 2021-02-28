@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -29,12 +30,15 @@ public class HourRegisterEntity {
     @Column(name = "moviment_type")
     private MovimentTypeEnum movimentType;
 
+    private Timestamp movimentDate;
+
     private Double hours;
 
     public HourRegisterEntity(HourRegisterDto dto, EmployeeEntity employeeEntity) {
         this.id = dto.getId();
         this.employeeEntity = employeeEntity;
         this.movimentType = dto.getMovimentType();
+        this.movimentDate = dto.getMovimentDate();
         this.hours = dto.getHours();
     }
 }

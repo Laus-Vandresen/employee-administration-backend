@@ -14,11 +14,11 @@ public class EmployeeAndHistoryDto {
     private EmployeeDto employeeDto;
     private List<EmployeeHistoryDto> employeeHistoryDtoList;
 
-    public void alteraEmployeeDto(EmployeeDto dto) {
+    public void alterEmployeeDto(EmployeeDto dto) {
         this.employeeDto = dto;
     }
 
-    public void alteraEmployeHistoryList(List<EmployeeHistoryDto> dtoList) {
+    public void alterEmployeHistoryList(List<EmployeeHistoryDto> dtoList) {
         this.employeeHistoryDtoList = dtoList;
     }
 

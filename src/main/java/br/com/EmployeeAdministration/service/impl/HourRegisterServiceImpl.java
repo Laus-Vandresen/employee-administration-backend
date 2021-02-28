@@ -9,6 +9,9 @@ import br.com.EmployeeAdministration.service.HourRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class HourRegisterServiceImpl implements HourRegisterService {
 
@@ -23,5 +26,10 @@ public class HourRegisterServiceImpl implements HourRegisterService {
     public HourRegisterDto saveHourRegister(HourRegisterDto dto) {
         EmployeeEntity employeeEntity = employeeService.findById(dto.getIdEmployee());
         return new HourRegisterDto(hourRegisterRepository.save(new HourRegisterEntity(dto, employeeEntity)));
+    }
+
+    @Override
+    public List<HourRegisterEntity> findAllByEmployeeFromMonth(Long employeeEntity_id, LocalDate firstDayOfMonth, LocalDate lastDayOfMonth) {
+        return hourRegisterRepository.findAllByEmployeeFromMonth(employeeEntity_id, firstDayOfMonth, lastDayOfMonth);
     }
 }
