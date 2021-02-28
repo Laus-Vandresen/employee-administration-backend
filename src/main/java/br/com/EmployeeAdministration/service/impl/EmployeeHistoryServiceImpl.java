@@ -1,6 +1,5 @@
 package br.com.EmployeeAdministration.service.impl;
 
-import br.com.EmployeeAdministration.dto.EmployeeDto;
 import br.com.EmployeeAdministration.dto.EmployeeHistoryDto;
 import br.com.EmployeeAdministration.entity.EmployeeEntity;
 import br.com.EmployeeAdministration.entity.EmployeeHistoryEntity;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class EmployeeHistoryServiceImpl implements EmployeeHistoryService {
@@ -37,7 +34,7 @@ public class EmployeeHistoryServiceImpl implements EmployeeHistoryService {
 
     @Override
     public List<EmployeeHistoryDto> findAllByEmployeeId(Long employeeId) {
-        List<EmployeeHistoryEntity> employeeHistoryEntityList = employeeHistoryRepository.findAllById(Collections.singleton(employeeId));
+        List<EmployeeHistoryEntity> employeeHistoryEntityList = employeeHistoryRepository.findAllByEmployeeEntityIdOrderByDateDesc(employeeId);
         return employeeHistoryEntityList.stream().map(EmployeeHistoryDto::new).collect(Collectors.toList());
     }
 }
