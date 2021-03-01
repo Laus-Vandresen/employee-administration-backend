@@ -1,14 +1,13 @@
 package br.com.EmployeeAdministration.service;
 
 import br.com.EmployeeAdministration.dto.HourRegisterDto;
-import br.com.EmployeeAdministration.entity.EmployeeHistoryEntity;
 import br.com.EmployeeAdministration.entity.HourRegisterEntity;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface HourRegisterService {
     HourRegisterDto saveHourRegister(HourRegisterDto dto);
 
-    List<HourRegisterEntity> findAllByEmployeeFromMonth(Long employeeEntity_id, LocalDate firstDayOfMonth, LocalDate lastDayOfMonth);
+    List<HourRegisterEntity> findAllByEmployeeFromMonth(Long employeeEntity_id, Timestamp firstDayOfMonth, Timestamp lastDayOfMonth);
 }

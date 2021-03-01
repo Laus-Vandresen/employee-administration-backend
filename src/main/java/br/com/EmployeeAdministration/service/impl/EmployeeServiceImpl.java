@@ -14,7 +14,11 @@ import br.com.EmployeeAdministration.service.HourRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Objects;
@@ -54,9 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public DashboarDataDto getDashBoardData(Long idEmployee) {
         DashboarDataDto dashboarDataDto = new DashboarDataDto();
-        LocalDate lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
-        LocalDate firstDayOfMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
-        List<HourRegisterEntity> hourRegisterEntityList = hourRegisterService.findAllByEmployeeFromMonth(idEmployee, firstDayOfMonth, lastDayOfMonth);
+        List<HourRegisterEntity> hourRegisterEntityList = hourRegisterService.findAllByEmployeeFromMonth(idEmployee, getFirstDayOfMonth(), getLasttDayOfMonth());
         EmployeeHistoryEntity employeeHistoryEntity = employeeHistoryService.findTopByEmployeeEntityIdOrderByDateDesc(idEmployee);
         if (Objects.nonNull(employeeHistoryEntity)) {
             dashboarDataDto.alterActualSalary(employeeHistoryEntity.getMonthSalary());
@@ -64,6 +66,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         calculateAvaregeHours(hourRegisterEntityList, dashboarDataDto);
         return dashboarDataDto;
+    }
+
+    private Timestamp getFirstDayOfMonth() {
+        LocalDateTime firstDayOfMonth = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
+        return Timestamp.valueOf(firstDayOfMonth);
+    }
+
+    private Timestamp getLasttDayOfMonth() {
+        LocalDateTime lastDayOfMonth = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth());
+        return Timestamp.valueOf(lastDayOfMonth);
     }
 
     private void calculateAvaregeHours(List<HourRegisterEntity> hourRegisterEntityList, DashboarDataDto dashboarDataDto) {
@@ -76,12 +88,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 entryCount++;
                 totalEntryValue += hourRegisterEntity.getHours();
             }
-            if (MovimentTypeEnum.ENTRY.equals(hourRegisterEntity.getMovimentType())) {
+            if (MovimentTypeEnum.OUT.equals(hourRegisterEntity.getMovimentType())) {
                 outCount++;
                 totalOutValue += hourRegisterEntity.getHours();
             }
         }
-        dashboarDataDto.alterAvarageEntryTime(totalEntryValue / entryCount);
-        dashboarDataDto.alterAvarageOutTime(totalOutValue / outCount);
+
+        dashboarDataDto.alterAvarageEntryTime(0D == totalEntryValue ? totalEntryValue : totalEntryValue / entryCount);
+        dashboarDataDto.alterAvarageOutTime(0d == totalOutValue ? totalOutValue : totalOutValue / outCount);
     }
 }
