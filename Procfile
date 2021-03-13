@@ -1,1 +1,1 @@
-heroku war:deploy target/EmployeeAdministration-0.0.1-SNAPSHOT.war --app employee-adm
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* br.com.EmployeeAdministration
