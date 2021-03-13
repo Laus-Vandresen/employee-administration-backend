@@ -1,1 +1,1 @@
-heroku war:deploy target/EmployeeAdministration-0.0.1-SNAPSHOT.war --app employee-administration-backend
+heroku war:deploy target/EmployeeAdministration-0.0.1-SNAPSHOT.war --app employee-adm
