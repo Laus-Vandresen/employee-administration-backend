@@ -1,1 +1,1 @@
-web: java $JAVA_HOME -jar -Dspring.profiles.active=prod target/dependency/webapp-runner.jar --port $PORT target/*.war
+heroku war:deploy target/EmployeeAdministration-0.0.1-SNAPSHOT.war --app employee-administration-backend
